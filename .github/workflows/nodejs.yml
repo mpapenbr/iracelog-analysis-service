@@ -30,7 +30,7 @@ jobs:
       - name: Prep npm for using packages from github
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.PAT_READ_PACKAGES }}" > ~/.npmrc
-          echo "@mpapenbr:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+          echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com/" >> ~/.npmrc
       # - name: configure npm
       #   run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.PAT_READ_PACKAGES }}
 

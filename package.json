@@ -4,7 +4,7 @@
   "description": "analysis routines for iracelog",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mpapenbr/iracelog-analysis.git"
+    "url": "git@github.com:mpapenbr/iracelog-analysis-service.git"
   },
   "author": {
     "name": "Markus Papenbrock",

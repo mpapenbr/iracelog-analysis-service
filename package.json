@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git@github.com:mpapenbr/iracelog-analysis-service.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/mpapenbr"
+  },
   "author": {
     "name": "Markus Papenbrock",
     "email": "Markus.Papenbrock@gmail.com"

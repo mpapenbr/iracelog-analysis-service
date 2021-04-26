@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "14"
       - name: Prep npm for using packages from github
-        run: echo //npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }} >> ~/.npmrc
+        run: echo //npm.pkg.github.com/:_authToken=${{ secrets.PAT_READ_PACKAGES }} >> ~/.npmrc
 
       - name: Install dependencies
         run: yarn install

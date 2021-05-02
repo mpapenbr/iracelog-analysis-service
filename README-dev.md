@@ -1,6 +1,9 @@
 # Accessing own packages on GitHub packages
 
-No so brillant.
-As of now (2021-04-26) I got this only working with my (general purpose) personal access token. GITHUB_ACTION_TOKEN does not work. I had to define a repository secret (PAT_REPO_ACCESS) and use that with github actions.
+At the moment (2021-04-25) there is no way to get packages from github repository (https://npm.pkg.github.com) without using a personal access token (PAT).  
+So we need to put one in place at `~/.npmrc` which looks like this
 
-**Also important**: The referenced lib iracelog-analyis has to be published with `--access public` otherwise we get a 401 during the install phase.
+```
+@mpapenbr:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=<READ_ACCESS_TOKEN>
+```

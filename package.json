@@ -1,6 +1,6 @@
 {
   "name": "@mpapenbr/iracelog-analysis-service",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "analysis routines for iracelog",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "postversion": "git push --tags"
   },
   "dependencies": {
-    "@mpapenbr/iracelog-analysis": "^1.0.6",
+    "@mpapenbr/iracelog-analysis": "^1.0.9",
     "autobahn": "^20.9.2",
     "lodash": "^4.17.21",
     "sprintf-js": "^1.1.2"

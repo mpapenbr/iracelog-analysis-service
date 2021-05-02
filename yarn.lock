@@ -487,10 +487,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mpapenbr/iracelog-analysis@^1.0.5":
-  version "1.0.5"
-  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.0.5/ba928bc6fb5d821f6200d57bde42a38d480362aab627faee32469ef6d098420d#62f733ac16e7634ad9713379d78bdb44e3d70411"
-  integrity sha512-bkoWaeYqXZxdwPFUb+QP+0BzbLBp4eA+q816zZ5OYZRi8u1heYjcBKIGoDUNHEmsk/vKQCiNZbG95bCn8AM6yA==
+"@mpapenbr/iracelog-analysis@^1.0.9":
+  version "1.0.9"
+  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.0.9/aae8ce969790f853754dd468e51cd502707b3a1b4d4424acf7d5616cf12b90e3#bb3f728c5b2707d9ba8324fdcfa71090a1ae24d4"
+  integrity sha512-doOUPIOn7JAss6d2o9c83vsBchLH7wtZzX1BO4uQmVTVVVO+heBkXfDSjBqKhrCuCKWaZapry/oPAQucLX3+FA==
   dependencies:
     lodash "^4.17.21"
 

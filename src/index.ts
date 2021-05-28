@@ -35,6 +35,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     if (!a) {
       return { error: "need an id" };
     }
+
     const manifestFile = sprintf("data/manifest-%s.json", a[0]);
     const dataFile = sprintf("data/data-%s.json", a[0]);
     if (!fs.existsSync(manifestFile)) {

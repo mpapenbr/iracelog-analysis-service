@@ -1,6 +1,6 @@
 {
   "name": "@mpapenbr/iracelog-analysis-service",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "analysis routines for iracelog",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc && node dist/index.js",
-    "dbreader": "tsc && node dist/dbreader.js",
+    "dbstuff": "tsc && node dist/dbexchange.js",
     "testCI": "jest --runInBand",
     "preversion": "yarn testCI",
     "postversion": "git push --tags"

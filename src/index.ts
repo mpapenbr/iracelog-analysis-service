@@ -5,6 +5,7 @@ import { createManifests } from "@mpapenbr/iracelog-analysis/dist/stints/util";
 import autobahn, { IEvent, ISubscription } from "autobahn";
 import fs from "fs";
 import { sprintf } from "sprintf-js";
+import { getArchivedAnalysis, storeAnalysisData } from "./dbexchange";
 
 const CROSSBAR_URL = process.env.CROSSBAR_URL || "ws://host.docker.internal:8090/ws";
 const REALM = process.env.CROSSBAR_REALM || "racelog";
@@ -31,7 +32,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
   console.log("connected to crossbar server " + CROSSBAR_URL + " as " + USER);
   let providerLookup = new Map<string, ProviderData>();
 
-  const processArchive = (a: any[] | undefined) => {
+  const processArchiveFile = (a: any[] | undefined) => {
     if (!a) {
       return { error: "need an id" };
     }
@@ -46,6 +47,15 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     }
     const manifests = readManifestsFromFile(manifestFile);
     const result = bulkProcessFile(manifests, dataFile);
+    return result;
+  };
+
+  const processArchiveDb = (a: any[] | undefined) => {
+    if (!a) {
+      return { error: "need an id" };
+    }
+    // const result = getArchivedAnalysisSync(a[0]);
+    const result = getArchivedAnalysis(a[0]);
     return result;
   };
 
@@ -84,6 +94,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     if (a[0] === "QUIT") {
       const myData = providerLookup.get(myId);
       if (myData) {
+        storeAnalysisData(myId, myData.currentData);
         if (myData.dataSub) session.unsubscribe(myData.dataSub);
         if (myData.managerSub) session.unsubscribe(myData.managerSub);
       }
@@ -109,7 +120,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
   };
 
   session.register("racelog.analysis.live", getLiveAnalysis);
-  session.register("racelog.analysis.archive", processArchive);
+  session.register("racelog.analysis.archive", processArchiveDb);
   session.subscribe("racelog.manager.provider", processNewProvider);
 };
 

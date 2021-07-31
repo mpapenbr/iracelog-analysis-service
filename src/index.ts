@@ -5,13 +5,18 @@ import { createManifests } from "@mpapenbr/iracelog-analysis/dist/stints/util";
 import autobahn, { IEvent, ISubscription } from "autobahn";
 import fs from "fs";
 import { sprintf } from "sprintf-js";
-import { getArchivedAnalysis, storeAnalysisData } from "./dbexchange";
+import { getArchivedAnalysis, storeAnalysisData, updateReplayInfoOnEvent } from "./dbexchange";
 
 const CROSSBAR_URL = process.env.CROSSBAR_URL || "ws://host.docker.internal:8090/ws";
 const REALM = process.env.CROSSBAR_REALM || "racelog";
 const USER = process.env.CROSSBAR_USER || "set CROSSBAR_USER";
 const CREDENTIALS = process.env.CROSSBAR_CREDENTIALS || "set CROSSBAR_CREDENTIALS";
 
+interface IReplayInfo {
+  minSessionTime: number;
+  maxSessionTime: number;
+  minTimestamp: number;
+}
 interface ProviderData {
   id: string;
   bulkProcessor: BulkProcessor;
@@ -19,6 +24,9 @@ interface ProviderData {
   currentData?: IProcessRaceStateData;
   dataSub?: ISubscription;
   managerSub?: ISubscription;
+  lastUpdate: Date;
+  replayInfo: IReplayInfo;
+  raceStartMarkerFound: boolean;
 }
 
 var conn = new autobahn.Connection({
@@ -85,8 +93,48 @@ conn.onopen = (session: autobahn.Session, details: any) => {
       return;
     }
     myData.currentData = myData.bulkProcessor.process([a[0]]);
+    computeReplayInfo(myData);
+    const nowDate = new Date();
+    if (nowDate.getTime() - myData.lastUpdate.getTime() > 10000) {
+      // wenn start gefunden, prima, dann minTs/St auf gefundenen Wert
+      // store every 10s
+
+      // console.log("now: " + nowDate + " lastUpdate: " + myData.lastUpdate.getTime());
+      console.log(nowDate.toISOString() + ": storing analysis data");
+      storeAnalysisData(myId, myData.currentData);
+      updateReplayInfoOnEvent(myId, myData.replayInfo);
+      myData.lastUpdate = new Date();
+    }
   };
 
+  // myCurrentData is already up to date
+  const computeReplayInfo = (myData: ProviderData) => {
+    myData.replayInfo.maxSessionTime = myData.currentData?.session?.data[0];
+    if (!myData.raceStartMarkerFound) {
+      //TODO: get attributes by manifests to get rid of magic indexes ;)
+
+      const found = myData.currentData?.infoMsgs.find((v) => {
+        // console.log(v);
+        return v.data.find((m: any[]) => {
+          // console.log(m);
+          // console.log(m[m.length - 1]);
+          return m[0] == "Timing" && m[1] == "RaceControl" && m[m.length - 1] == "Race start";
+        });
+      });
+
+      if (found) {
+        console.log("found race start");
+        myData.replayInfo.minTimestamp = found.timestamp;
+        myData.replayInfo.minSessionTime = myData.currentData?.session?.data[0]; // insider knowledge: sessionTime is the first entry
+        myData.raceStartMarkerFound = true;
+      } else {
+        if (myData.replayInfo.minTimestamp === 0) {
+          myData.replayInfo.minTimestamp = myData.currentData?.session?.timestamp ?? 0;
+          myData.replayInfo.minSessionTime = myData.currentData?.session?.data[0]; // insider knowledge: sessionTime is the first entry
+        }
+      }
+    }
+  };
   const managerCommandHandler = (a: any[] | undefined, kwargs: any, details?: IEvent) => {
     if (!a) return;
     const regex = /racelog\.manager\.command\.(?<myId>.*)$/;
@@ -108,7 +156,14 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     const workManifest: IManifests = createManifests(manifests);
     let providerData = providerLookup.get(id);
     if (providerData === undefined) {
-      providerData = { id: id, bulkProcessor: new BulkProcessor(workManifest), manifests: manifests };
+      providerData = {
+        id: id,
+        bulkProcessor: new BulkProcessor(workManifest),
+        manifests: manifests,
+        lastUpdate: new Date(),
+        replayInfo: { minSessionTime: 0, maxSessionTime: 0, minTimestamp: 0 },
+        raceStartMarkerFound: false,
+      };
       providerLookup.set(id, providerData);
       session.subscribe("racelog.state." + id, processForLiveAnalysis).then((sub) => {
         if (providerData) providerData.dataSub = sub;

@@ -25,20 +25,58 @@ export const storeAnalysisData = (eventKey: string, data: any) => {
     };
     client.query("BEGIN", (err) => {
       if (shouldAbort(err)) return;
-      console.log("Checking event id for event " + eventKey);
+      // console.log("Checking event id for event " + eventKey);
       client.query("select id from event where event_key=$1", [eventKey], (err: Error, res: any) => {
         if (shouldAbort(err)) return;
         const eventId = res.rows[0].id;
         console.log("event id is " + eventId);
-        client.query(
-          "insert into analysis (event_id,data) values ($1,$2::jsonb)",
-          [eventId, JSON.stringify(data)],
-          (err: Error, res: any) => {
-            if (shouldAbort(err)) return;
-            client.query("COMMIT", (err) => done());
+        client.query("select id from analysis where event_id=$1", [eventId], (err: Error, res: any) => {
+          if (shouldAbort(err)) return;
+          if (res.rows.length === 0) {
+            client.query(
+              "insert into analysis (event_id,data) values ($1,$2::jsonb)",
+              [eventId, JSON.stringify(data)],
+              (err: Error, res: any) => {
+                if (shouldAbort(err)) return;
+                client.query("COMMIT", (err) => done());
+              }
+            );
+          } else {
+            // do update
+            client.query(
+              "update analysis set data = $2::jsonb where event_id=$1",
+              [eventId, JSON.stringify(data)],
+              (err: Error, res: any) => {
+                if (shouldAbort(err)) return;
+                client.query("COMMIT", (err) => done());
+              }
+            );
           }
-        );
+        });
       });
+    });
+  });
+};
+
+export const updateReplayInfoOnEvent = (eventKey: string, replayInfo: any) => {
+  pool.connect((err, client, done) => {
+    const shouldAbort = (err: Error) => {
+      if (err) {
+        console.log(err);
+        done();
+      }
+      return !!err;
+    };
+    client.query("BEGIN", (err) => {
+      const data = { replayInfo: replayInfo };
+      client.query(
+        "update event set data = mgm_jsonb_merge(data, $2::jsonb) where event_key=$1",
+        [eventKey, JSON.stringify(data)],
+        (err: Error, res: any) => {
+          if (shouldAbort(err)) return;
+          client.query("COMMIT", (err) => done());
+        }
+      );
     });
   });
 };

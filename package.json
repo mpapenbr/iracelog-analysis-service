@@ -17,14 +17,15 @@
   "devDependencies": {
     "@types/autobahn": "^18.10.0",
     "@types/jest": "^26.0.22",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^14.14.41",
+    "@types/lodash": "^4.14.172",
+    "@types/node": "^16.7.8",
     "@types/pg": "^8.6.0",
     "@types/sprintf-js": "^1.1.2",
+    "generate-changelog": "^1.8.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.5",
     "tslint": "^6.1.3",
-    "typescript": "^4.2.4"
+    "typescript": "^4.4"
   },
   "files": [
     "dist/"
@@ -35,7 +36,11 @@
     "dbstuff": "tsc && node dist/dbexchange.js",
     "testCI": "jest --runInBand",
     "preversion": "yarn testCI",
-    "postversion": "git push --tags"
+    "postversion": "git push --tags && git push && echo \"Successfully released version $npm_package_version!\"",
+    "release:test": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && yarn version --patch",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && yarn version --major ",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && yarn version --minor ",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && yarn version --patch "
   },
   "dependencies": {
     "@mpapenbr/iracelog-analysis": "^1.0.9",

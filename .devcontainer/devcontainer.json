@@ -39,8 +39,7 @@
 			"github.vscode-pull-request-github",
 			"sleistner.vscode-fileutils",
 			"patbenatar.advanced-new-file",
-			"formulahendry.auto-rename-tag",
-			"coenraads.bracket-pair-colorizer",
+			"formulahendry.auto-rename-tag",			
 			"wallabyjs.quokka-vscode",
 			"dsznajder.es7-react-js-snippets"
 	  ],

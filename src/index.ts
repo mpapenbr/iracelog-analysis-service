@@ -85,7 +85,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     if (!a || !details) return; // no data or meta data -> no processing
     // the id is present in the topic
     // console.log(details);
-    const regex = /racelog\.state\.(?<myId>.*)$/;
+    const regex = /racelog\.public\.live\.state\.(?<myId>.*)$/;
     const { myId } = details?.topic.match(regex)?.groups!;
     const myData = providerLookup.get(myId);
     if (!myData) {
@@ -148,35 +148,53 @@ conn.onopen = (session: autobahn.Session, details: any) => {
       }
     }
   };
-  const processNewProvider = (a: any[] | undefined, kwargs: any, details?: IEvent) => {
-    if (!a) return;
-    console.log(kwargs);
-    console.log(details);
-    const { id, manifests } = a[0];
+
+  const processNewProvider = (payload: any) => {
+    const { eventKey, manifests } = payload;
+
     const workManifest: IManifests = createManifests(manifests);
-    let providerData = providerLookup.get(id);
+    let providerData = providerLookup.get(eventKey);
     if (providerData === undefined) {
       providerData = {
-        id: id,
+        id: eventKey,
         bulkProcessor: new BulkProcessor(workManifest),
         manifests: manifests,
         lastUpdate: new Date(),
         replayInfo: { minSessionTime: 0, maxSessionTime: 0, minTimestamp: 0 },
         raceStartMarkerFound: false,
       };
-      providerLookup.set(id, providerData);
-      session.subscribe("racelog.state." + id, processForLiveAnalysis).then((sub) => {
+      providerLookup.set(eventKey, providerData);
+      session.subscribe("racelog.public.live.state." + eventKey, processForLiveAnalysis).then((sub) => {
         if (providerData) providerData.dataSub = sub;
-      });
-      session.subscribe("racelog.manager.command." + id, managerCommandHandler).then((sub) => {
-        if (providerData) providerData.managerSub = sub;
       });
     }
   };
+  const processProviderRemoval = (eventKey: string) => {
+    const myData = providerLookup.get(eventKey);
+    if (myData) {
+      storeAnalysisData(eventKey, myData.currentData);
+      if (myData.dataSub) session.unsubscribe(myData.dataSub);
+    }
+  };
+  const processProviderMessage = (a: any[] | undefined, kwargs: any, details?: IEvent) => {
+    if (!a) return;
+    console.log(kwargs);
+    console.log(details);
+    console.log(a);
 
-  session.register("racelog.analysis.live", getLiveAnalysis);
-  session.register("racelog.analysis.archive", processArchiveDb);
-  session.subscribe("racelog.manager.provider", processNewProvider);
+    switch (a[0].type) {
+      case 1: // announce new provider
+        processNewProvider(a[0].payload);
+        break;
+      case 2: // announce provider removal
+        processProviderRemoval(a[0].payload);
+        break;
+    }
+  };
+
+  session.register("racelog.public.live.get_event_analysis", getLiveAnalysis);
+  // session.register("racelog.analysis.archive", processArchiveDb);
+  session.subscribe("racelog.manager.provider", processProviderMessage);
 };
 
 conn.open();

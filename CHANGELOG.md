@@ -1,3 +1,14 @@
+### 0.1.0 (2021-11-28)
+
+##### Continuous Integration
+
+* **changelog:**  fixed double-entry ([b67da5c8](https://github.com/mpapenbr/iracelog-analysis-service/commit/b67da5c8edf623539ebcc60c9dc4f452b079738b))
+* **release:**  auto create release notes ([a2177499](https://github.com/mpapenbr/iracelog-analysis-service/commit/a2177499851bb9bbad77eafa904b64d40fb64ba0))
+
+##### New Features
+
+*  adapt to new wamp endpoints ([0f885216](https://github.com/mpapenbr/iracelog-analysis-service/commit/0f885216bdffe194ec2c2dfea0056a4aff0aea83))
+
 #### 0.0.8 (2021-09-04)
 
 ##### Chores

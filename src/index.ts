@@ -38,6 +38,7 @@ var conn = new autobahn.Connection({
 });
 conn.onopen = (session: autobahn.Session, details: any) => {
   console.log("connected to crossbar server " + CROSSBAR_URL + " as " + USER);
+  console.log("using this db " + process.env.DB_URL);
   let providerLookup = new Map<string, ProviderData>();
 
   const processArchiveFile = (a: any[] | undefined) => {
@@ -174,6 +175,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     if (myData) {
       storeAnalysisData(eventKey, myData.currentData);
       if (myData.dataSub) session.unsubscribe(myData.dataSub);
+      providerLookup.delete(eventKey);
     }
   };
   const processProviderMessage = (a: any[] | undefined, kwargs: any, details?: IEvent) => {

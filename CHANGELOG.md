@@ -1,3 +1,9 @@
+#### 0.1.1 (2021-12-03)
+
+##### Bug Fixes
+
+*  remove entry from providerLookup ([744d85da](https://github.com/mpapenbr/iracelog-analysis-service/commit/744d85daf9c20018b16591e842abd8b40c805073))
+
 ### 0.1.0 (2021-11-28)
 
 ##### Continuous Integration

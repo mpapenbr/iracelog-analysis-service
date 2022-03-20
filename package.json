@@ -1,6 +1,6 @@
 {
   "name": "@mpapenbr/iracelog-analysis-service",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "analysis routines for iracelog",
   "repository": {
     "type": "git",

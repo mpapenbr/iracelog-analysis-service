@@ -1,3 +1,17 @@
+#### 0.1.2 (2022-03-20)
+
+##### Build System / Dependencies
+
+* **deps:**  pg 8.7.3 + dev-deps ([ce13e94a](https://github.com/mpapenbr/iracelog-analysis-service/commit/ce13e94ab43fae6596f033b437601846df91b26c))
+
+##### Chores
+
+*  github issues + dependabot config ([a4fe498c](https://github.com/mpapenbr/iracelog-analysis-service/commit/a4fe498ce3d47f800d3772698009a16174ea1b23))
+
+##### Bug Fixes
+
+*  reworked computeReplayInfo ([5f254913](https://github.com/mpapenbr/iracelog-analysis-service/commit/5f254913c54a963047be63947887f85a80742393))
+
 #### 0.1.1 (2021-12-03)
 
 ##### Bug Fixes

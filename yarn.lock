@@ -697,10 +697,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mpapenbr/iracelog-analysis@^1.1.1":
-  version "1.1.1"
-  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.1.1/281e767e1c405e23e8566575eb3ce9029b75e50591b588d17216a16fafc430fa#87fe788860c891c9764e238396b62bd4760886f5"
-  integrity sha512-P5o49+J9lKer+EbpZSMAtlVI4OMmN/G1TM/ZoX3xv5PQbO3XyDxx9lQE1NWOlrx1DDoLZpycxTptzf1x6FhpcA==
+"@mpapenbr/iracelog-analysis@^1.1.2":
+  version "1.1.2"
+  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.1.2/ea5e76e82769d32856e3be670cb3471aa4449e7883e6cc6bc3d2adefb7de1468#b1cc1d6ff8feafd1aa58e80353c657041134abb1"
+  integrity sha512-Sy6yFJQxObqlivy4ulCef5XVAjY3jeHyRWDZzXny8uOcHXp4fBoOQuAWp5palBmNKPGz7Pdvtp0WA+A3HAK7Pg==
   dependencies:
     lodash "^4.17.21"
 

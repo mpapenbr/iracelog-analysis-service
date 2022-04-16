@@ -1,3 +1,14 @@
+### 0.2.0 (2022-04-16)
+
+##### Build System / Dependencies
+
+* **deps:**  iracelog-analysis 1.1.2 ([e31c55d5](https://github.com/mpapenbr/iracelog-analysis-service/commit/e31c55d5b1d2e20093ecc7c0f648c56be058b707))
+*  use node alpine image ([432c3ff5](https://github.com/mpapenbr/iracelog-analysis-service/commit/432c3ff5d2206eb85848beebdb9f0a36004de179))
+
+##### New Features
+
+*  reprocess event on rpc ([28e04245](https://github.com/mpapenbr/iracelog-analysis-service/commit/28e04245366987c077c96162cbdf138ec2976dd8))
+
 #### 0.1.2 (2022-03-20)
 
 ##### Build System / Dependencies

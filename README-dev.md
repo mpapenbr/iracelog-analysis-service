@@ -29,3 +29,11 @@ So we need to put one in place at `~/.npmrc` which looks like this
 @mpapenbr:registry=https://npm.pkg.github.com/
 //npm.pkg.github.com/:_authToken=<READ_ACCESS_TOKEN>
 ```
+
+# When running someting inside the container
+
+## export some env vars
+
+```
+export $(cat .env.dev )
+```

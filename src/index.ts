@@ -3,7 +3,13 @@ import autobahn, { IEvent } from "autobahn";
 import fs from "fs";
 import { sprintf } from "sprintf-js";
 import { computeReplayInfo } from "./compute";
-import { getArchivedAnalysis, storeAnalysisData, updateReplayInfoOnEvent } from "./dbexchange";
+import {
+  eventIdToEventKey,
+  getArchivedAnalysis,
+  processEvent,
+  storeAnalysisData,
+  updateReplayInfoOnEvent,
+} from "./dbexchange";
 import { IPayloadData, ProviderData } from "./types";
 import { createProviderData } from "./util";
 // import { ProviderData } from "./types";
@@ -52,6 +58,11 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     return result;
   };
 
+  /**
+   * callback for endpoint racelog.public.live.get_event_analysis
+   * @param a wamp argument array. expect an id on a[0]
+   * @returns struct with { processedData: IProcessRaceStateData, manifests: IShortManifests }
+   */
   const getLiveAnalysis = (a: any[] | undefined) => {
     if (!a) {
       return { error: "need an id" };
@@ -64,6 +75,28 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     if (data) {
       return { processedData: data.currentData, manifests: data.manifests } || {};
     }
+  };
+
+  /**
+   * call
+   * @param a
+   * @returns
+   */
+  const reprocessEvent = async (a: any[] | undefined, kwargs: any) => {
+    let { eventId, eventKey } = kwargs;
+
+    if (eventId === undefined && eventKey === undefined) {
+      return { error: "eventId or eventKey must be provided" };
+    }
+    if (eventKey === undefined) {
+      eventKey = await eventIdToEventKey(eventId);
+      if (eventKey === undefined) {
+        return { error: "no event for id " + eventId + " found" };
+      }
+    }
+    const data = await processEvent(eventKey);
+    await storeAnalysisData(eventKey, data);
+    return { message: `event ${eventKey} processed` };
   };
 
   const processForLiveAnalysis = (a: any[] | undefined, kwargs: any, details?: IEvent) => {
@@ -92,23 +125,10 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     }
   };
 
-  const managerCommandHandler = (a: any[] | undefined, kwargs: any, details?: IEvent) => {
-    if (!a) return;
-    const regex = /racelog\.manager\.command\.(?<myId>.*)$/;
-    const { myId } = details?.topic.match(regex)?.groups!;
-    if (a[0] === "QUIT") {
-      const myData = providerLookup.get(myId);
-      if (myData) {
-        storeAnalysisData(myId, myData.currentData);
-        if (myData.dataSub) session.unsubscribe(myData.dataSub);
-        if (myData.managerSub) session.unsubscribe(myData.managerSub);
-      }
-    }
-  };
-
   const processNewProvider = (payload: IPayloadData) => {
     const { eventKey } = payload;
 
+    console.log(JSON.stringify(payload));
     let providerData = providerLookup.get(eventKey);
     if (providerData === undefined) {
       providerData = createProviderData(payload);
@@ -122,6 +142,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
     const myData = providerLookup.get(eventKey);
     if (myData) {
       storeAnalysisData(eventKey, myData.currentData);
+      updateReplayInfoOnEvent(eventKey, myData.replayInfo);
       if (myData.dataSub) session.unsubscribe(myData.dataSub);
       providerLookup.delete(eventKey);
     }
@@ -143,6 +164,7 @@ conn.onopen = (session: autobahn.Session, details: any) => {
   };
 
   session.register("racelog.public.live.get_event_analysis", getLiveAnalysis);
+  session.register("racelog.admin.event.process", reprocessEvent);
   // session.register("racelog.analysis.archive", processArchiveDb);
   session.subscribe("racelog.manager.provider", processProviderMessage);
 };

@@ -31,48 +31,18 @@ export const storeAnalysisData = async (eventKey: string, data: any) => {
     client.release();
   }
 };
-export const storeAnalysisDataOld = (eventKey: string, data: any) => {
-  pool.connect((err, client, done) => {
-    const shouldAbort = (err: Error) => {
-      if (err) {
-        console.log(err);
-        done();
-      }
-      return !!err;
-    };
-    client.query("BEGIN", (err) => {
-      if (shouldAbort(err)) return;
-      // console.log("Checking event id for event " + eventKey);
-      client.query("select id from event where event_key=$1", [eventKey], (err: Error, res: any) => {
-        if (shouldAbort(err)) return;
-        const eventId = res.rows[0].id;
-        console.log("event id is " + eventId);
-        client.query("select id from analysis where event_id=$1", [eventId], (err: Error, res: any) => {
-          if (shouldAbort(err)) return;
-          if (res.rows.length === 0) {
-            client.query(
-              "insert into analysis (event_id,data) values ($1,$2::jsonb)",
-              [eventId, JSON.stringify(data)],
-              (err: Error, res: any) => {
-                if (shouldAbort(err)) return;
-                client.query("COMMIT", (err) => done());
-              }
-            );
-          } else {
-            // do update
-            client.query(
-              "update analysis set data = $2::jsonb where event_id=$1",
-              [eventId, JSON.stringify(data)],
-              (err: Error, res: any) => {
-                if (shouldAbort(err)) return;
-                client.query("COMMIT", (err) => done());
-              }
-            );
-          }
-        });
-      });
-    });
-  });
+
+export const eventIdToEventKey = async (eventId: number): Promise<string | undefined> => {
+  let client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    let result = await client.query("select event_key from event where id=$1", [eventId]);
+    await client.query("COMMIT");
+    const eventKey = result.rowCount > 0 ? result.rows[0].event_key : undefined;
+    return eventKey;
+  } finally {
+    client.release();
+  }
 };
 
 export const updateReplayInfoOnEvent = (eventKey: string, replayInfo: any) => {
@@ -122,6 +92,8 @@ export const processEvent = async (eventKey: string) => {
   await client.query("BEGIN");
   try {
     let res = await client.query("select * from event where event_key=$1", [eventKey]);
+    if (res.rowCount === 0) throw new Error("no data found for eventKey " + eventKey);
+
     const manifests = createManifests(res.rows[0].data.manifests);
     const eventId = res.rows[0].id;
     res = await client.query("select * from wampdata where event_id=$1 order by data->'timestamp' asc ", [eventId]);
@@ -133,31 +105,3 @@ export const processEvent = async (eventKey: string) => {
     client.release();
   }
 };
-export const processEventOld = (eventKey: string) => {
-  return new Promise((resolve, reject) => {
-    pool.query("select * from event where event_key=$1", [eventKey]).then((res) => {
-      const manifests = createManifests(res.rows[0].data.manifests);
-
-      const proc = new BulkProcessor(manifests);
-      pool
-        .query("select * from wampdata where event_id=$1 order by data->'timestamp' asc ", [res.rows[0].id])
-        .then((res) => {
-          //
-          const procResult = proc.process(res.rows.map((v) => v.data));
-          resolve(procResult);
-        });
-    });
-  });
-};
-
-// const eventKeys = ["1", "3", "neo", "68d4ff7adbb3412b8da2ab53daf01453", "26ceac390dcac80d439992c98b0a9db8"];
-// eventKeys.forEach((eventKey) => {
-//   console.log("Processing " + eventKey);
-//   const start = new Date();
-//   processEvent(eventKey).then((res) => {
-//     // console.log(res);
-//     storeAnalysisData(eventKey, res);
-
-//     console.log("process time used: ", new Date().getTime() - start.getTime());
-//   });
-// });

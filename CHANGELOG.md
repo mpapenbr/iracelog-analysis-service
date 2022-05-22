@@ -1,3 +1,10 @@
+#### 0.2.1 (2022-05-22)
+
+##### Build System / Dependencies
+
+* **deps-dev:**  typescript 4.6.4, jest 28.1.0 ([862db637](https://github.com/mpapenbr/iracelog-analysis-service/commit/862db637a4d737a5cd01cf7c3c50036104556454))
+* **deps:**  iracelog-analysis 1.1.3 ([596b2830](https://github.com/mpapenbr/iracelog-analysis-service/commit/596b2830c316810020cf73e17969f5e938dcdc0e))
+
 ### 0.2.0 (2022-04-16)
 
 ##### Build System / Dependencies

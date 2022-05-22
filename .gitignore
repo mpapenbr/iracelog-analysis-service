@@ -1,7 +1,9 @@
 # Own stuff
 private.tar
 .npmrc
+.gitconfig.local*
 data/
+
 
 # Logs
 logs

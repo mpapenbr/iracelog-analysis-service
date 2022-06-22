@@ -725,10 +725,10 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@types/autobahn@^20.9.0":
-  version "20.9.0"
-  resolved "https://registry.yarnpkg.com/@types/autobahn/-/autobahn-20.9.0.tgz#a0ba92541035a2c3f9f490da533b937f2e02f627"
-  integrity sha512-iKFdFmMN5psAO1q238QocXIBV1BsenNw/Jd2GwzKfJ3n/yZz/8jECuEfURyLV90uruUc6Y79EvlrdB3uVoJ2WA==
+"@types/autobahn@^20.9.1":
+  version "20.9.1"
+  resolved "https://registry.yarnpkg.com/@types/autobahn/-/autobahn-20.9.1.tgz#4947e1bb62878a6143e810ff6d0676c973e86f20"
+  integrity sha512-5F9GQFS/twe15C/b+/RpNj4PHyTsfW07gkHAfF7w6sT44wlPOvgIBfVd0xPAuw1Id57q71muSfEah08RNiZeNQ==
   dependencies:
     "@types/when" "*"
 

@@ -1,3 +1,21 @@
+### 0.3.0 (2022-09-25)
+
+##### Build System / Dependencies
+
+* **deps:**  iracelog-analysis v1.2.0 ([2326c404](https://github.com/mpapenbr/iracelog-analysis-service/commit/2326c404532047151bd04ce3a2a0f36751e025cd))
+* **deps-dev:**
+  *  bump jest and @types/jest ([8b75b4a0](https://github.com/mpapenbr/iracelog-analysis-service/commit/8b75b4a0890c209974cb4ed487fe75a5f5fcc331))
+  *  bump ts-jest from 28.0.4 to 28.0.5 ([9a8ebf5b](https://github.com/mpapenbr/iracelog-analysis-service/commit/9a8ebf5b7f23a2ac0296a6a1c2c50e4d9850c3a8))
+  *  bump typescript from 4.7.2 to 4.7.4 ([72da99f2](https://github.com/mpapenbr/iracelog-analysis-service/commit/72da99f2ce0685df388aa61ea10ab6d016882a01))
+  *  bump @types/autobahn from 20.9.0 to 20.9.1 ([6b46264a](https://github.com/mpapenbr/iracelog-analysis-service/commit/6b46264ab49ca2cc41db27710d4530ddc31a05c7))
+  *  bump typescript from 4.6.4 to 4.7.2 ([7b6e683a](https://github.com/mpapenbr/iracelog-analysis-service/commit/7b6e683a129bb2130d5eb84b6b2605b377277bc7))
+  *  bump @types/jest from 27.5.1 to 28.1.0 ([1ea62d07](https://github.com/mpapenbr/iracelog-analysis-service/commit/1ea62d074e27c9e13b45044d110e12623829434d))
+  *  bump ts-jest from 28.0.2 to 28.0.4 ([6efc6662](https://github.com/mpapenbr/iracelog-analysis-service/commit/6efc6662140e2bca959a075c207ce2bc76e8e5a4))
+
+##### Chores
+
+*  init devcontainer ([842c0d85](https://github.com/mpapenbr/iracelog-analysis-service/commit/842c0d85d229fdb6d663c19cebf8309818969462))
+
 #### 0.2.1 (2022-05-22)
 
 ##### Build System / Dependencies

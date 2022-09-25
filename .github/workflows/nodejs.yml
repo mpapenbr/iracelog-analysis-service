@@ -29,7 +29,7 @@ jobs:
           node-version: "16"
       - name: Prep npm for using packages from github
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PERSONAL_GITHUB_TOKEN }}" > ~/.npmrc
           echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com/" >> ~/.npmrc
       # - name: configure npm
       #   run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.PAT_READ_PACKAGES }}

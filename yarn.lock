@@ -700,10 +700,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mpapenbr/iracelog-analysis@^1.1.3":
-  version "1.1.3"
-  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.1.3/e55993a7676d6e5cc6b617600eee318dd36783bb0096d601a985485f512c741c#85c63932920a8e8fe65f48990f13e1f349edbd44"
-  integrity sha512-AWtJXCTE7qCNjkg9A0ahxcENUJ4DadGbRaedDJkUUQf2Y+aY7+/JHlDmo51y4kgVn//ZAWr8OZIqYGKSpGoyew==
+"@mpapenbr/iracelog-analysis@^1.2.0":
+  version "1.2.0"
+  resolved "https://npm.pkg.github.com/download/@mpapenbr/iracelog-analysis/1.2.0/73a5affee56f93e9eaeb06debe1941da3e51f846#73a5affee56f93e9eaeb06debe1941da3e51f846"
+  integrity sha512-uzv2BaTJp093BiAhhw6tPotY3JmieF1LyUDIaqQoxJoHEnQVm+4quOv+JTWM1uYd5BFoGqWZjstiFiwCWDH4DA==
   dependencies:
     lodash "^4.17.21"
 
@@ -805,15 +805,10 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.182.tgz#05301a4d5e62963227eaafe0ce04dd77c54ea5c2"
   integrity sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==
 
-"@types/node@*":
-  version "14.14.41"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
-  integrity sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==
-
-"@types/node@^16.7.8":
-  version "16.7.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.10.tgz#7aa732cc47341c12a16b7d562f519c2383b6d4fc"
-  integrity sha512-S63Dlv4zIPb8x6MMTgDq5WWRJQe56iBEY0O3SOFA9JrRienkOVDXSXBjjJw6HTNQYSE2JI6GMCR6LVbIMHJVvA==
+"@types/node@*", "@types/node@^18.7.21":
+  version "18.7.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.21.tgz#63ee6688070e456325b6748dc492a7b948593871"
+  integrity sha512-rLFzK5bhM0YPyCoTC8bolBjMk7bwnZ8qeZUBslBfjZQou2ssJdWslx9CZ8DGM+Dx7QXQiiTVZ/6QO6kwtHkZCA==
 
 "@types/pg@^8.6.5":
   version "8.6.5"

@@ -52,7 +52,7 @@
     "@mpapenbr/iracelog-analysis": "^1.2.0",
     "autobahn": "^20.9.2",
     "lodash": "^4.17.21",
-    "pg": "^8.7.3",
+    "pg": "^8.8.0",
     "sprintf-js": "^1.1.2"
   }
 }

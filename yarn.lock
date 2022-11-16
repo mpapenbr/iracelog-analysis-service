@@ -907,16 +907,16 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-autobahn@^20.9.2:
-  version "20.9.2"
-  resolved "https://registry.yarnpkg.com/autobahn/-/autobahn-20.9.2.tgz#244029f0829b23b465dfdbe83cb597b6d4e212ed"
-  integrity sha512-Xas7mHujzRJe1p9RWPS3QTrwcXF5S9B9oT26cbzQKnE7qsvMOvmNnRZ6SWYpMdgDgJDCQ+kvpvQE8pRA/kWTPw==
+autobahn@^22.11.1:
+  version "22.11.1"
+  resolved "https://registry.yarnpkg.com/autobahn/-/autobahn-22.11.1.tgz#ec5816541ea32e376361bf793ad59b3cf802c6d9"
+  integrity sha512-0jEi6KUIAURxAx9QtXzOmSKPopEVNBjSLJ/9VFWDlPFfK3VimKBpXvkzC3YxzSqOlzGqrpRax1ITAAMc4ztpcw==
   dependencies:
     cbor ">= 3.0.0"
     crypto-js ">=3.1.8"
     msgpack5 ">= 3.6.0"
     tweetnacl ">= 0.14.3"
-    ws ">= 1.1.4"
+    ws "1.1.4 - 7"
   optionalDependencies:
     bufferutil ">= 1.2.1"
     utf-8-validate ">= 1.2.1"
@@ -2739,10 +2739,10 @@ write-file-atomic@^4.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
 
-"ws@>= 1.1.4":
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.5.tgz#a484dd851e9beb6fdb420027e3885e8ce48986c1"
-  integrity sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g==
+"ws@1.1.4 - 7":
+  version "7.5.9"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
+  integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
 xtend@^4.0.0:
   version "4.0.2"

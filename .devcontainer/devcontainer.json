@@ -2,47 +2,47 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/typescript-node
 {
   "name": "iracelog-analysis-service",
-  "build": {
-    "dockerfile": "Dockerfile",
-    // Update 'VARIANT' to pick a Node version: 10, 12, 14
-    "args": {
-      "VARIANT": "16"
-    }
-  },
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:0-16",
 
   // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "terminal.integrated.shell.linux": "/bin/bash",
-    "prettier.printWidth": 120,
-    "editor.tabSize": 2,
-    "editor.formatOnSave": true,
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.codeActionsOnSave": {
-        "source.organizeImports": true
-      }
-    },
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.codeActionsOnSave": {
-        "source.organizeImports": true
-      }
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "prettier.printWidth": 120,
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        }
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-tslint-plugin",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "github.vscode-pull-request-github",
+        "sleistner.vscode-fileutils",
+        "patbenatar.advanced-new-file",
+        "formulahendry.auto-rename-tag",
+        "wallabyjs.quokka-vscode",
+        "dsznajder.es7-react-js-snippets"
+      ]
     }
+  },
+  "containerEnv": {
+    "TZ": "Europe/Berlin"
   },
 
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "ms-vscode.vscode-typescript-tslint-plugin",
-    "eamodio.gitlens",
-    "esbenp.prettier-vscode",
-    "github.vscode-pull-request-github",
-    "sleistner.vscode-fileutils",
-    "patbenatar.advanced-new-file",
-    "formulahendry.auto-rename-tag",
-    "wallabyjs.quokka-vscode",
-    "dsznajder.es7-react-js-snippets"
-  ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],

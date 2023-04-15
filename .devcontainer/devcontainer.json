@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/typescript-node
 {
   "name": "iracelog-analysis-service",
-  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:0-16",
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:0-18",
 
   // Set *default* container specific settings.json values on container create.
   "customizations": {

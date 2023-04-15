@@ -1,5 +1,6 @@
 name: Build image on Tag
 on:
+  workflow_dispatch:
   push:
     tags:
       - "*"

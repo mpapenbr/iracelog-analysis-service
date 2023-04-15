@@ -1,3 +1,23 @@
+#### 0.3.1 (2023-04-15)
+
+##### Build System / Dependencies
+
+*  bump versions + dev env ([b5db5d5f](https://github.com/mpapenbr/iracelog-analysis-service/commit/b5db5d5f8f73bdc92fc6dc311f6744963e8a9bb5))
+
+##### Chores
+
+* **gha:**
+  *  new access token for docker image ([ac51f74d](https://github.com/mpapenbr/iracelog-analysis-service/commit/ac51f74d8499c22c7c42f6f22415fcf4be050e45))
+  *  new access token ([edae4f63](https://github.com/mpapenbr/iracelog-analysis-service/commit/edae4f635f37beee4cc9e19e51adbf372d88b780))
+
+##### Bug Fixes
+
+*  removed permissions restriction from action ([542cd9af](https://github.com/mpapenbr/iracelog-analysis-service/commit/542cd9af826a7313dd377996402eacdedbe106db))
+
+##### Other Changes
+
+*  allow build image workflow_dispatch ([b468efe6](https://github.com/mpapenbr/iracelog-analysis-service/commit/b468efe62aea2973317b92cac22e2be94f07c63c))
+
 ### 0.3.0 (2022-09-25)
 
 ##### Build System / Dependencies

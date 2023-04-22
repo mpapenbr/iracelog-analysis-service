@@ -18,7 +18,7 @@
     "@types/autobahn": "^20.9.1",
     "@types/jest": "^29.5.0",
     "@types/lodash": "^4.14.194",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.15.13",
     "@types/pg": "^8.6.6",
     "@types/sprintf-js": "^1.1.2",
     "generate-changelog": "^1.8.0",
